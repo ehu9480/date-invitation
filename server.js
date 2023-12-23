@@ -7,7 +7,7 @@ const port = 3000;
 // File to store submissions
 const DATA_FILE = path.join(__dirname, 'submissions.json');
 
-app.use(express.static('public'));
+app.use(express.static('docs'));
 app.use(express.json());
 
 // Endpoint to handle form submissions
@@ -39,7 +39,7 @@ app.post('/submit-datetime', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'docs', 'index.html'));
 });
 
 app.listen(port, () => {
