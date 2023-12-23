@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   yesBtn.addEventListener("click", () => {
-    comment.innerHTML = "Yay, see you on the 18th!";
+    comment.innerHTML = "YAY, I can't wait!";
     question.innerHTML = "I knew you would make the right choice!"
     gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
 
