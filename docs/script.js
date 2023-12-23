@@ -25,19 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   };
 
-
-  yesBtn.addEventListener("click", () => {
-    comment.innerHTML = "Yay, see you on the 18th!";
-    question.innerHTML = "I knew you would make the right choice!"
-    gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
-
-    // Hide the yes and no buttons
-    document.querySelector('.btn-group').style.display = 'none';
-
-    // Show the date-time picker
-    document.querySelector('.date-time-picker').style.display = 'block';
-  });
-
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
   document.getElementById("dateTimeForm").addEventListener("submit", (event) => {
@@ -52,24 +40,37 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Reference to your Firebase database
+    // Firebase Firestore reference
     const db = firebase.firestore();
 
-    // Add a new document in collection "dates"
+    // Add data to Firestore
     db.collection("dates").add({
       datetime: datetime,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
-    .then(() => {
-      submissionMessage.textContent = "Submission saved successfully";
-      submissionMessage.style.color = "green";
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-      submissionMessage.textContent = "Error submitting the form.";
-      submissionMessage.style.color = "red";
-    });
+      .then(() => {
+        submissionMessage.textContent = "Submission saved successfully";
+        submissionMessage.style.color = "green";
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+        submissionMessage.textContent = "Error submitting the form.";
+        submissionMessage.style.color = "red";
+      });
   });
+
+  yesBtn.addEventListener("click", () => {
+    comment.innerHTML = "Yay, see you on the 18th!";
+    question.innerHTML = "I knew you would make the right choice!"
+    gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
+
+    // Hide the yes and no buttons
+    document.querySelector('.btn-group').style.display = 'none';
+
+    // Show the date-time picker
+    document.querySelector('.date-time-picker').style.display = 'block';
+  });
+
 
   noBtn.addEventListener("mouseover", () => {
     const noBtnRect = noBtn.getBoundingClientRect();

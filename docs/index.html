@@ -29,13 +29,16 @@
             the coming dates and times you know you <br />
             are avaliable and I will plan around them:
             </p>
-        <form id="dateTimeForm" method="post">
+        <form id="dateTimeForm">
             <input type="datetime-local" id="datetimeInput" name="datetime">
             <button type="submit" class="submit-btn">Submit</button>
         </form>
         <span id="submissionMessage"></span> <!-- Message outside the form -->
     </div>
     <script src="script.js"></script>
+    <!-- Include Firebase scripts here -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 </body>
 
 </html>
