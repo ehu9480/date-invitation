@@ -1,5 +1,4 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -25,6 +24,7 @@ h2 {
     color: #e94d58;
     margin: 15px 0;
 }
+
 .btn-group {
     width: 100%;
     height: 50px;
@@ -32,6 +32,7 @@ h2 {
     justify-content: center;
     margin-top: 50px;
 }
+
 button {
     position: absolute;
     width: 150px;
@@ -45,12 +46,51 @@ button {
     border: 2px solid #e94d58;
     font-size: 1.2em;
 }
+
 button:nth-child(1) {
     margin-left: -200px;
     background: #e94d58;
 }
+
 button:nth-child(2) {
     margin-right: -200px;
     background: white;
     color: #e94d58;
+}
+
+.date-time-picker p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #e94d58;
+    margin: 15px 0;
+}
+
+.date-time-picker input[type=datetime-local] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+.submit-btn {
+    position: absolute;
+    width: 150px;
+    height: inherit;
+    color: white;
+    font-size: 1.2em;
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px gray;
+    border: 2px solid #e94d58;
+    font-size: 1.2em;
+    margin-right: -200px;
+    background: white;
+    color: #e94d58;
+}
+
+#submissionMessage {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.1em;
 }
