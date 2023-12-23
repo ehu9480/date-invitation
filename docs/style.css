@@ -78,7 +78,7 @@ button:nth-child(2) {
 }
 
 .date-time-picker input[type=datetime-local] {
-    width: 300px; /* Increased width */
+    width: 350px; /* Increased width */
     padding: 12px;
     margin: 10px auto;
     display: block;
