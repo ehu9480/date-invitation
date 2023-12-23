@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   const wrapper = document.querySelector(".wrapper");
+  const comment = document.querySelector(".comment");
   const question = document.querySelector(".question");
   const gif = document.querySelector(".gif");
   const yesBtn = document.querySelector(".yes-btn");
@@ -8,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const submitBtn = document.querySelector(".submit-btn"); // Make sure this selector matches your HTML
 
   yesBtn.addEventListener("click", () => {
-    question.innerHTML = "Yay, see you on the 18th!";
+    comment.innerHTML = "Yay, see you on the 18th!";
+    question.innerHTML = "I knew you would make the right choice!"
     gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
 
     // Hide the yes and no buttons

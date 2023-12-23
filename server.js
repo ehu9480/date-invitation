@@ -1,22 +1,47 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON bodies
+// File to store submissions
+const DATA_FILE = path.join(__dirname, 'submissions.json');
+
+app.use(express.static('public'));
 app.use(express.json());
 
-// Serve static files from the 'public' directory (where your HTML, CSS, and JS files are)
-app.use(express.static('public'));
-
-// Endpoint to handle form submission
+// Endpoint to handle form submissions
 app.post('/submit-datetime', (req, res) => {
-    console.log('Received datetime:', req.body.datetime);
+  const submission = req.body;
 
-    // Process the datetime as needed...
-    // For now, just sending a confirmation message
-    res.json({ message: 'Datetime received successfully!' });
+  // Read existing data
+  fs.readFile(DATA_FILE, (err, data) => {
+    if (err && err.code !== 'ENOENT') {
+      res.status(500).send({ message: "Error reading file" });
+      return;
+    }
+
+    const submissions = data.length ? JSON.parse(data) : [];
+
+    // Append new submission
+    submissions.push(submission);
+
+    // Write updated data back to file
+    fs.writeFile(DATA_FILE, JSON.stringify(submissions, null, 2), (err) => {
+      if (err) {
+        res.status(500).send({ message: "Error writing file" });
+        return;
+      }
+
+      res.send({ message: "Submission saved successfully" });
+    });
+  });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
