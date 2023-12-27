@@ -83,4 +83,21 @@ document.addEventListener('DOMContentLoaded', function () {
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        selectable: true,
+        selectHelper: true,
+        select: function(info) {
+            // Handle date selection
+            var startDate = info.startStr;
+            var endDate = info.endStr;
+            // Store or process these dates
+        },
+        // ... other calendar options ...
+    });
+
+    calendar.render();
+});
 });
