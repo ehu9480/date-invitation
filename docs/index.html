@@ -1,48 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+    <meta charset='utf-8' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.css' rel='stylesheet' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>message for you</title>
+    <title>Message for You</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- FullCalendar CSS -->
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css' rel='stylesheet' />
 </head>
-
 <body>
-    <div id="submissionMessageContainer">
-        <span id="submissionMessage"></span>
-    </div>
     <div class="wrapper">
         <h2 class="comment">MERRY CHRISTMAS BABY!!</h2>
-        <h3 class="question">Ready to bake a christmas cake with me?</h3>
+        <h3 class="question">Ready to bake a Christmas cake with me?</h3>
         <img class="gif" alt="gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2FzZjlwa2k5anlzeWw0dW5zOG1zbDEzYzhsNThwb3Q0NWJvd3d1NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/iwurHzSjdHhMiK0BNt/giphy.gif" />
         <div class="btn-group">
             <button class="yes-btn">Yes</button>
             <button class="no-btn">No</button>
         </div>
     </div>
-    
-    <!-- Add this section inside the <body> tag, after the existing code -->
     <div class="date-time-picker" style="display: none;">
-        <p>Were going to use this website to plan <br />
-            dates and calls from now on. Select all <br />
-            the coming dates and times you know you <br />
-            are avaliable and I will plan around them:
-            </p>
+        <p>We're going to use this website to plan dates and calls from now on. Select all the coming dates and times you know you are available, and I will plan around them:</p>
         <form id="dateTimeForm">
             <input type="datetime-local" id="datetimeInput" name="datetime">
             <button type="submit" class="submit-btn">Submit</button>
         </form>
-        <span id="submissionMessage"></span> <!-- Message outside the form -->
+        <span id="submissionMessage"></span>
     </div>
     <div id='calendar'></div>
-    <!-- Firebase and FullCalendar Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <script src="script.js"></script>
 </body>
-
 </html>
