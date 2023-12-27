@@ -25,81 +25,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
   };
 
-  document.addEventListener('DOMContentLoaded', function () {
-    // FullCalendar initialization
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+    // Initialize FullCalendar
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        selectable: true,
-        selectMirror: true,
-        dayMaxEvents: true,
-        select: function(info) {
-            // Handle date selection
-            var datesSelected = info.startStr + " to " + info.endStr;
-            alert("Dates selected: " + datesSelected);
-            // You can modify this part to add selected dates to Firebase or handle them as needed
-        }
-    });
+      plugins: ['interaction', 'dayGrid'],
+      selectable: true,
+      selectHelper: true,
+      select: function (info) {
+          db.collection("dates").add({
+              start: info.startStr,
+              end: info.endStr,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          })
+          .then(function () {
+              console.log("Date range added successfully");
+          })
+          .catch(function (error) {
+              console.error("Error adding date range: ", error);
+          });
+      },
+      // Other calendar options
+  });
+  calendar.render();
 
-    calendar.render();
+  yesBtn.addEventListener("click", () => {
+    comment.innerHTML = "YAY, I can't wait!";
+    question.innerHTML = "I knew you would make the right choice!"
+    gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
 
-      
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    // Hide the yes and no buttons
+    document.querySelector('.btn-group').style.display = 'none';
 
-    document.getElementById("dateTimeForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const datetime = document.getElementById("datetimeInput").value;
-      const submissionMessage = document.getElementById("submissionMessage");
-
-      if (datetime === "") {
-        submissionMessage.textContent = "Please complete the time selection.";
-        submissionMessage.style.color = "red";
-        return;
-      }
-
-      // Firebase Firestore reference
-      const db = firebase.firestore();
-
-      // Add data to Firestore
-      db.collection("dates").add({
-        datetime: datetime,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      })
-        .then(() => {
-          submissionMessage.textContent = "Submission saved successfully";
-          submissionMessage.style.color = "green";
-        })
-        .catch((error) => {
-          console.error("Error writing document: ", error);
-          submissionMessage.textContent = "Error submitting the form.";
-          submissionMessage.style.color = "red";
-        });
-    });
-
-    yesBtn.addEventListener("click", () => {
-      comment.innerHTML = "YAY, I can't wait!";
-      question.innerHTML = "I knew you would make the right choice!"
-      gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
-
-      // Hide the yes and no buttons
-      document.querySelector('.btn-group').style.display = 'none';
-
-      // Show the date-time picker
-      document.querySelector('.date-time-picker').style.display = 'block';
-    });
+    // Show the date-time picker
+    document.querySelector('.date-time-picker').style.display = 'block';
+  });
 
 
-    noBtn.addEventListener("mouseover", () => {
-      const noBtnRect = noBtn.getBoundingClientRect();
-      const maxX = window.innerWidth - noBtnRect.width;
-      const maxY = window.innerHeight - noBtnRect.height;
+  noBtn.addEventListener("mouseover", () => {
+    const noBtnRect = noBtn.getBoundingClientRect();
+    const maxX = window.innerWidth - noBtnRect.width;
+    const maxY = window.innerHeight - noBtnRect.height;
 
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
 
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
-    });
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
   });
 });
