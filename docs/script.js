@@ -29,26 +29,26 @@ document.addEventListener('DOMContentLoaded', function () {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-    // Initialize FullCalendar
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: ['interaction', 'dayGrid'],
-      selectable: true,
-      selectHelper: true,
-      select: function (info) {
-          db.collection("dates").add({
-              start: info.startStr,
-              end: info.endStr,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          })
-          .then(function () {
-              console.log("Date range added successfully");
-          })
-          .catch(function (error) {
-              console.error("Error adding date range: ", error);
-          });
-      },
-      // Other calendar options
+  // Initialize FullCalendar
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    plugins: ['interaction', 'dayGrid'],
+    selectable: true,
+    selectHelper: true,
+    select: function (info) {
+      db.collection("dates").add({
+          start: info.startStr,
+          end: info.endStr,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(function () {
+          console.log("Date range added successfully");
+      })
+      .catch(function (error) {
+          console.error("Error adding date range: ", error);
+      });
+    },
+    // Other calendar options
   });
   calendar.render();
 
