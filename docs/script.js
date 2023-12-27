@@ -25,79 +25,81 @@ document.addEventListener('DOMContentLoaded', function () {
 
   };
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-  document.getElementById("dateTimeForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const datetime = document.getElementById("datetimeInput").value;
-    const submissionMessage = document.getElementById("submissionMessage");
-
-    if (datetime === "") {
-      submissionMessage.textContent = "Please complete the time selection.";
-      submissionMessage.style.color = "red";
-      return;
-    }
-
-    // Firebase Firestore reference
-    const db = firebase.firestore();
-
-    // Add data to Firestore
-    db.collection("dates").add({
-      datetime: datetime,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-      .then(() => {
-        submissionMessage.textContent = "Submission saved successfully";
-        submissionMessage.style.color = "green";
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-        submissionMessage.textContent = "Error submitting the form.";
-        submissionMessage.style.color = "red";
-      });
-  });
-
-  yesBtn.addEventListener("click", () => {
-    comment.innerHTML = "YAY, I can't wait!";
-    question.innerHTML = "I knew you would make the right choice!"
-    gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
-
-    // Hide the yes and no buttons
-    document.querySelector('.btn-group').style.display = 'none';
-
-    // Show the date-time picker
-    document.querySelector('.date-time-picker').style.display = 'block';
-  });
-
-
-  noBtn.addEventListener("mouseover", () => {
-    const noBtnRect = noBtn.getBoundingClientRect();
-    const maxX = window.innerWidth - noBtnRect.width;
-    const maxY = window.innerHeight - noBtnRect.height;
-
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
-
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    // FullCalendar initialization
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
-        selectHelper: true,
+        selectMirror: true,
+        dayMaxEvents: true,
         select: function(info) {
             // Handle date selection
-            var startDate = info.startStr;
-            var endDate = info.endStr;
-            // Store or process these dates
-        },
-        // ... other calendar options ...
+            var datesSelected = info.startStr + " to " + info.endStr;
+            alert("Dates selected: " + datesSelected);
+            // You can modify this part to add selected dates to Firebase or handle them as needed
+        }
     });
 
     calendar.render();
-});
+
+      
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    document.getElementById("dateTimeForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const datetime = document.getElementById("datetimeInput").value;
+      const submissionMessage = document.getElementById("submissionMessage");
+
+      if (datetime === "") {
+        submissionMessage.textContent = "Please complete the time selection.";
+        submissionMessage.style.color = "red";
+        return;
+      }
+
+      // Firebase Firestore reference
+      const db = firebase.firestore();
+
+      // Add data to Firestore
+      db.collection("dates").add({
+        datetime: datetime,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+        .then(() => {
+          submissionMessage.textContent = "Submission saved successfully";
+          submissionMessage.style.color = "green";
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+          submissionMessage.textContent = "Error submitting the form.";
+          submissionMessage.style.color = "red";
+        });
+    });
+
+    yesBtn.addEventListener("click", () => {
+      comment.innerHTML = "YAY, I can't wait!";
+      question.innerHTML = "I knew you would make the right choice!"
+      gif.src = "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
+
+      // Hide the yes and no buttons
+      document.querySelector('.btn-group').style.display = 'none';
+
+      // Show the date-time picker
+      document.querySelector('.date-time-picker').style.display = 'block';
+    });
+
+
+    noBtn.addEventListener("mouseover", () => {
+      const noBtnRect = noBtn.getBoundingClientRect();
+      const maxX = window.innerWidth - noBtnRect.width;
+      const maxY = window.innerHeight - noBtnRect.height;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    });
+  });
 });
